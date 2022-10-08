@@ -27,4 +27,14 @@ public class ProductRepository {
     public List<Product> getProducts() {
         return products;
     }
+    public void addProduct(Long id, String title, Float cost){
+        products.add(new Product(id,title,cost));
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+    public void deleteProduct(Product product){
+        products.remove(product);
+    }
 }

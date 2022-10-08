@@ -3,12 +3,11 @@ package ru.geekbrains.marketautumn.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.marketautumn.dto.Product;
 import ru.geekbrains.marketautumn.services.ProductService;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,6 +45,42 @@ public class MainController {
     public String getAllProducts(Model model){
         model.addAttribute("allproducts",service.getAllProducts());
         return "allproducts.html";
+    }
+
+    @GetMapping("/allAngularProducts")
+    @ResponseBody
+        public List<Product> getAllAngularProducts(){
+            return service.getAllProducts();
+        }
+
+
+    @GetMapping("/product/add")
+    @ResponseBody
+    public void addProduct(Long id, String title, Float cost){
+        service.addProduct(id, title, cost);
+    }
+
+    @GetMapping("/addproduct")
+    public String form(){
+        return "addproduct.html";
+    }
+
+    @GetMapping("/prod")
+    @ResponseBody
+        public Product prod(){
+            return service.getProduct(1L);
+    }
+
+//    {"id":4,"title":"Straw","cost":112.1}
+    @PostMapping("/product/add")
+    @ResponseBody
+    public void addProductPost(@RequestBody Product product){
+        service.addProduct(product);
+    }
+    @GetMapping("/deleteproduct")
+    @ResponseBody
+    public void deleteProduct(@RequestParam Long productId){
+        service.deleteProduct(productId);
     }
 
 }

@@ -19,4 +19,14 @@ public class ProductService {
     public List<Product> getAllProducts(){
         return repository.getProducts();
     }
+    public void addProduct(Long id, String title, Float cost){
+        repository.addProduct(id,title,cost);
+    }
+    public void addProduct(Product product){
+        repository.addProduct(product);
+    }
+    public void deleteProduct(Long id){
+        Product product = repository.findById(id);
+        repository.deleteProduct(product);
+    }
 }
